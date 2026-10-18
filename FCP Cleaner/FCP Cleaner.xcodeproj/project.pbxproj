@@ -1,0 +1,480 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FC0800012026101800000001 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = FC0800012026101800000002 /* Sparkle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FC0700012026101800000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2BB315703083D71E00D212E8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2BB315773083D71E00D212E8;
+			remoteInfo = "FCP Cleaner";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2BB315783083D71E00D212E8 /* FCP Cleaner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FCP Cleaner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BB315903083DC2400D212E8 /* FCPCleanerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FCPCleanerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BB3159B3083DCB800D212E8 /* FCP Cleaner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "FCP Cleaner.entitlements"; sourceTree = "<group>"; };
+		FC0800012026101800000003 /* Config/Updates.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Updates.xcconfig; sourceTree = "<group>"; };
+		FC0800012026101800000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		2BB3157A3083D71E00D212E8 /* FCP Cleaner */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "FCP Cleaner";
+			sourceTree = "<group>";
+		};
+		2BB315913083DC2400D212E8 /* FCPCleanerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FCPCleanerTests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2BB315753083D71E00D212E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				FC0800012026101800000001 /* Sparkle in Frameworks */,
+			);
+		};
+		2BB3158D3083DC2400D212E8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2BB3156F3083D71E00D212E8 = {
+			isa = PBXGroup;
+			children = (
+				FC0800012026101800000003 /* Config/Updates.xcconfig */,
+				FC0800012026101800000004 /* Info.plist */,
+				2BB3157A3083D71E00D212E8 /* FCP Cleaner */,
+				2BB315913083DC2400D212E8 /* FCPCleanerTests */,
+				2BB3159B3083DCB800D212E8 /* FCP Cleaner.entitlements */,
+				2BB315793083D71E00D212E8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2BB315793083D71E00D212E8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2BB315783083D71E00D212E8 /* FCP Cleaner.app */,
+				2BB315903083DC2400D212E8 /* FCPCleanerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2BB315773083D71E00D212E8 /* FCP Cleaner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BB315833083D72000D212E8 /* Build configuration list for PBXNativeTarget "FCP Cleaner" */;
+			buildPhases = (
+				2BB315743083D71E00D212E8 /* Sources */,
+				2BB315753083D71E00D212E8 /* Frameworks */,
+				2BB315763083D71E00D212E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				2BB3157A3083D71E00D212E8 /* FCP Cleaner */,
+			);
+			name = "FCP Cleaner";
+			packageProductDependencies = (
+				FC0800012026101800000002 /* Sparkle */,
+			);
+			productName = "FCP Cleaner";
+			productReference = 2BB315783083D71E00D212E8 /* FCP Cleaner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2BB3158F3083DC2400D212E8 /* FCPCleanerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BB315943083DC2400D212E8 /* Build configuration list for PBXNativeTarget "FCPCleanerTests" */;
+			buildPhases = (
+				2BB3158C3083DC2400D212E8 /* Sources */,
+				2BB3158D3083DC2400D212E8 /* Frameworks */,
+				2BB3158E3083DC2400D212E8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC0700012026101800000002 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				2BB315913083DC2400D212E8 /* FCPCleanerTests */,
+			);
+			name = FCPCleanerTests;
+			productName = FCPCleanerTests;
+			productReference = 2BB315903083DC2400D212E8 /* FCPCleanerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2BB315703083D71E00D212E8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2710;
+				LastUpgradeCheck = 2710;
+				TargetAttributes = {
+					2BB315773083D71E00D212E8 = {
+						CreatedOnToolsVersion = 27.1;
+					};
+					2BB3158F3083DC2400D212E8 = {
+						CreatedOnToolsVersion = 27.1;
+						TestTargetID = 2BB315773083D71E00D212E8;
+					};
+				};
+			};
+			buildConfigurationList = 2BB315733083D71E00D212E8 /* Build configuration list for PBXProject "FCP Cleaner" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2BB3156F3083D71E00D212E8;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FC0800012026101800000005 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 2BB315793083D71E00D212E8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2BB315773083D71E00D212E8 /* FCP Cleaner */,
+				2BB3158F3083DC2400D212E8 /* FCPCleanerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2BB315763083D71E00D212E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		2BB3158E3083DC2400D212E8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2BB315743083D71E00D212E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		2BB3158C3083DC2400D212E8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FC0700012026101800000002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2BB315773083D71E00D212E8 /* FCP Cleaner */;
+			targetProxy = FC0700012026101800000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2BB315813083D72000D212E8 /* Debug configuration for PBXProject "FCP Cleaner" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FCPCLEANER_BUNDLE_IDENTIFIER = "com.example.FCP-Cleaner";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2BB315823083D72000D212E8 /* Release configuration for PBXProject "FCP Cleaner" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FCPCLEANER_BUNDLE_IDENTIFIER = "com.example.FCP-Cleaner";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		2BB315843083D72000D212E8 /* Debug configuration for PBXNativeTarget "FCP Cleaner" */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC0800012026101800000003 /* Config/Updates.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "FCP Cleaner.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(FCPCLEANER_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "";
+			};
+			name = Debug;
+		};
+		2BB315853083D72000D212E8 /* Release configuration for PBXNativeTarget "FCP Cleaner" */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC0800012026101800000003 /* Config/Updates.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "FCP Cleaner.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(FCPCLEANER_BUNDLE_IDENTIFIER)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "";
+			};
+			name = Release;
+		};
+		2BB315953083DC2400D212E8 /* Debug configuration for PBXNativeTarget "FCPCleanerTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(FCPCLEANER_BUNDLE_IDENTIFIER).Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FCP Cleaner.app/Contents/MacOS/FCP Cleaner";
+			};
+			name = Debug;
+		};
+		2BB315963083DC2400D212E8 /* Release configuration for PBXNativeTarget "FCPCleanerTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(FCPCLEANER_BUNDLE_IDENTIFIER).Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FCP Cleaner.app/Contents/MacOS/FCP Cleaner";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2BB315733083D71E00D212E8 /* Build configuration list for PBXProject "FCP Cleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BB315813083D72000D212E8 /* Debug configuration for PBXProject "FCP Cleaner" */,
+				2BB315823083D72000D212E8 /* Release configuration for PBXProject "FCP Cleaner" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		2BB315833083D72000D212E8 /* Build configuration list for PBXNativeTarget "FCP Cleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BB315843083D72000D212E8 /* Debug configuration for PBXNativeTarget "FCP Cleaner" */,
+				2BB315853083D72000D212E8 /* Release configuration for PBXNativeTarget "FCP Cleaner" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		2BB315943083DC2400D212E8 /* Build configuration list for PBXNativeTarget "FCPCleanerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2BB315953083DC2400D212E8 /* Debug configuration for PBXNativeTarget "FCPCleanerTests" */,
+				2BB315963083DC2400D212E8 /* Release configuration for PBXNativeTarget "FCPCleanerTests" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FC0800012026101800000005 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FC0800012026101800000002 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC0800012026101800000005 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 2BB315703083D71E00D212E8 /* Project object */;
+	validationLevel = 1;
+}

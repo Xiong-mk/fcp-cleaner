@@ -1,0 +1,15 @@
+* text=auto
+*.swift text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+LICENSE text eol=lf
+*.png binary
+/inspection export-ignore
+/大拍档垃圾清理技术分析.md export-ignore
+/local-evidence export-ignore
+**/build export-ignore
+**/DerivedData export-ignore
+**/xcuserdata export-ignore
+.DS_Store export-ignore
+

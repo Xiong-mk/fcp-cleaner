@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FCP Cleaner 是原生 macOS Final Cut Pro 资源库缓存清理工具。">
+  <title>FCP Cleaner</title>
+  <style>
+    :root { color-scheme: light dark; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.7; }
+    body { max-width: 780px; padding: 48px 24px 64px; margin: auto; }
+    h1 { font-size: 2.3rem; line-height: 1.15; margin-bottom: .3rem; }
+    h2 { margin-top: 2rem; font-size: 1.25rem; }
+    a { color: #1765bf; text-underline-offset: 3px; }
+    .subtitle { color: #64686d; margin-top: .6rem; }
+    .status { padding: 16px 20px; border: 1px solid #b4b9c0; border-radius: 12px; }
+    .downloads { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0; }
+    .downloads a { display: inline-block; padding: 10px 16px; border: 1px solid currentColor; border-radius: 8px; text-decoration: none; }
+    code { font-size: .9em; overflow-wrap: anywhere; }
+    footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid #b4b9c0; font-size: .9rem; }
+    @media (prefers-color-scheme: dark) { a { color: #83bbff; } .subtitle { color: #adb3bb; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>FCP Cleaner</h1>
+    <p class="subtitle">原生 macOS Final Cut Pro 资源库缓存管理工具 · 0.1.0（构建 1）</p>
+    <p>选择资源库父文件夹，查看生成缓存的估算占用；预览并确认后，将明确选择的项目移到系统废纸篓。</p>
+    <p class="status">ad-hoc 预发布测试版。应用要求 macOS 14.0+，支持 Apple Silicon 与 Intel。本版未经过 Apple 公证，其他设备安装及 Gatekeeper 表现尚未验收。</p>
+    <nav class="downloads" aria-label="下载与项目链接">
+      <a href="https://github.com/Xiong-mk/fcp-cleaner/releases/download/v0.1.0/FCP-Cleaner-0.1.0.zip">下载应用 ZIP</a>
+      <a href="https://github.com/Xiong-mk/fcp-cleaner/releases/download/v0.1.0/FCP-Cleaner-v0.1.0-source.zip">下载对应源码</a>
+      <a href="https://github.com/Xiong-mk/fcp-cleaner">GitHub 仓库</a>
+    </nav>
+    <p><a href="https://github.com/Xiong-mk/fcp-cleaner/releases/tag/v0.1.0">发布说明、校验文件与附件</a> · <a href="appcast.xml">原始 appcast.xml</a> · <a href="https://github.com/Xiong-mk/fcp-cleaner/blob/main/docs/release.md">发布与验收状态</a></p>
+    <h2>清理范围</h2>
+    <p>只统计资源库包内事件目录中的 <code>Render Files/High Quality Media</code> 和 <code>Analysis Files</code>。不处理原始素材、代理或优化媒体、数据库、备份与外部缓存，也不能区分未使用的渲染。</p>
+    <p>清理前请退出 Final Cut Pro，核对预览并完成二次确认。后续可能需要重新渲染或分析。估算容量不等于实际释放空间；移入废纸篓失败时不会改用永久删除。</p>
+    <h2>软件更新</h2>
+    <p>应用使用 Sparkle，自动检查默认开启、自动下载默认关闭。首发只有 0.1.0（1），同版检查应提示已是最新版本；这不代表下载、安装与重启链路已经验收。</p>
+    <p>正式更新源：<a href="appcast.xml"><code>https://Xiong-mk.github.io/fcp-cleaner/appcast.xml</code></a></p>
+    <h2>源码与许可</h2>
+    <p>项目采用 <a href="https://github.com/Xiong-mk/fcp-cleaner/blob/main/LICENSE">GPL-3.0-or-later</a>。源码附件包含构建脚本与许可资料。使用和构建方法见 <a href="https://github.com/Xiong-mk/fcp-cleaner#readme">README</a>。</p>
+  </main>
+  <footer>Copyright © 2026 Steve。独立项目，与 Apple Inc. 无隶属或认可关系。</footer>
+</body>
+</html>

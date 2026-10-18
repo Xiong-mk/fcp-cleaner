@@ -1,0 +1,7 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Steve
+
+// xcconfig treats // as a comment: use https:/$()/host/path/appcast.xml.
+// GitHub Pages publishes the repository's main:/docs directory.
+SPARKLE_FEED_URL = https:/$()/Xiong-mk.github.io/fcp-cleaner/appcast.xml
+SPARKLE_PUBLIC_ED_KEY = 5dpdTSmSHWw0JCDqq9gOuBLNkXEidjNUGkTorlnszso=

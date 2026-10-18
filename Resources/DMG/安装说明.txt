@@ -1,0 +1,22 @@
+FCP Cleaner 安装说明
+
+步骤 1：将左侧的“FCP Cleaner.app”拖动到右侧的“Applications”文件夹。
+步骤 2：等待复制完成，前往“应用程序”文件夹打开 FCP Cleaner。
+步骤 3：安装完成后，可在 Finder 中推出“FCP Cleaner”磁盘映像。
+
+如果首次打开时 macOS 提示应用无法打开、应用已损坏，或来自未识别的开发者，请在确认应用来源可信后打开“终端”，执行：
+
+xattr -dr com.apple.quarantine "/Applications/FCP Cleaner.app"
+
+这条命令仅移除已安装应用的隔离属性。执行完成后，再次打开 FCP Cleaner。
+
+如果仍无法打开，可尝试以下备选命令（会清除该应用的全部扩展属性）：
+
+xattr -cr "/Applications/FCP Cleaner.app"
+
+说明：
+- 当前版本为 ad-hoc 签名测试版，尚未进行 Apple 公证。
+- 请仅在确认应用来源可信时使用上述命令。
+- 需要 macOS 14.0 或更高版本。
+- 本工具通过系统文件夹选择面板获取授权，清理前请先查看预览。
+- GPL-3.0-or-later 许可证与第三方声明可在应用菜单中查看。
