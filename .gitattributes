@@ -13,3 +13,5 @@ LICENSE text eol=lf
 **/xcuserdata export-ignore
 .DS_Store export-ignore
 
+# Preserve the reviewed upstream license verbatim, including its whitespace.
+"FCP Cleaner/FCP Cleaner/Resources/Legal/Sparkle-LICENSE.txt" -whitespace
