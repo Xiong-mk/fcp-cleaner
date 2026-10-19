@@ -1,6 +1,6 @@
 # v0.1.0 发布清单
 
-目标仓库：[Xiong-mk/fcp-cleaner](https://github.com/Xiong-mk/fcp-cleaner)。目标标签：**v0.1.0**，应用版本 **0.1.0（构建 1）**。这是 ad-hoc 签名、未公证的预发布测试版；发布准备、线上托管验证与实际升级安装分开记录。
+目标仓库：[Xiong-mk/fcp-cleaner](https://github.com/Xiong-mk/fcp-cleaner)。已发布标签：**v0.1.0**（2026-10-19），应用版本 **0.1.0（构建 1）**。这是 ad-hoc 签名、未公证的预发布测试版；发布准备、线上托管验证与实际升级安装分开记录。
 
 ## 本地准备
 
@@ -11,7 +11,7 @@
 - [x] GitHub 更新包与 appcast 准备脚本、源码允许列表审查、发布说明和 Pages 页面已准备。
 - [x] 最终应用版本 0.1.0、构建 1，arm64 / x86_64 通用架构；代码签名与更新包 EdDSA 签名验证通过。
 - [x] 本轮 133 项测试通过（12 个 suite）。
-- [x] 最终源码 ZIP、SHA-256 和逐文件 manifest 已生成；提交与发布标签前按清单核对。
+- [x] 最终源码 ZIP、SHA-256 和逐文件 manifest 已生成，82 项与 `v0.1.0` 标签源码一致。
 - [x] 待提交文件已审查，未包含真实资源库、媒体、用户路径、书签、日志、证书或私钥。
 
 更新 ZIP 为 `FCP-Cleaner-0.1.0.zip`，长度 **4,778,517 字节**，SHA-256：
@@ -25,15 +25,24 @@
 ## GitHub 发布与线上验收
 
 - [x] 公开仓库 `Xiong-mk/fcp-cleaner` 已创建。
-- [ ] 最终源码已推送到 `main`，`v0.1.0` 标签对应最终发布内容。
-- [ ] GitHub Pre-release 已发布，并提供以下附件：
+- [x] 最终源码已推送到 `main`；`v0.1.0` 标签对应源码提交 `adaf168fe1e79521525d823a21a7cd7809ec9372`。
+- [x] [GitHub Pre-release](https://github.com/Xiong-mk/fcp-cleaner/releases/tag/v0.1.0) 已发布，共 7 个附件：
   - `FCP-Cleaner-0.1.0.zip`：完整应用，供 Sparkle 使用与手动下载。
   - `FCP-Cleaner-v0.1.0-source.zip`：相同版本的完整对应源码。
   - 对应的 SHA-256、源码 manifest 和更新包元数据。
-- [ ] 从 Release 实际下载 ZIP，核对字节长度、SHA-256、EdDSA 签名及应用版本。
-- [ ] Pages 已选择 `Deploy from a branch` → `main` → `/docs`，部署完成。
-- [ ] [项目主页](https://Xiong-mk.github.io/fcp-cleaner/) 与 [appcast.xml](https://Xiong-mk.github.io/fcp-cleaner/appcast.xml) 返回 HTTPS 200，XML 中附件 URL 可下载。
-- [ ] 正式应用通过「检查更新…」成功读取正式源；首发同版本应显示已是最新版本。
+- [x] 从 Release 实际下载 ZIP；字节长度、SHA-256、CryptoKit Ed25519 验签、解压 App 代码签名、0.1.0（1）、正式 feed 和公钥核对均通过。
+- [x] Pages 已选择 `Deploy from a branch` → `main` → `/docs`，部署完成，强制 HTTPS 已开启。
+- [x] [项目主页](https://Xiong-mk.github.io/fcp-cleaner/) 与 [appcast.xml](https://Xiong-mk.github.io/fcp-cleaner/appcast.xml) 返回 HTTPS 200；远程 appcast 889 字节，与本地逐字节一致，XML 中附件 URL 可下载。
+- [x] 公网源码 ZIP 已下载，SHA-256 与本地一致，82 项 manifest 与标签源码一致。
+- [ ] 正式应用通过「检查更新…」成功读取正式源；首发同版本应显示已是最新版本（本轮尚未点击验证）。
+
+公网源码 ZIP `FCP-Cleaner-v0.1.0-source.zip` 的 SHA-256：
+
+```text
+dad3f5e8a77ad298551818be9b224a2b219aab6bff8a1824d0c1ffb00a7a0cc6
+```
+
+`v0.1.0` 标签中的文档保留发版时快照，`main` 包含 2026-10-19 后续验收记录。Release 源码包继续对应原标签，勿因这些记录更新而重建或替换。
 
 发布步骤见 [GitHub Pages + Releases 发布流程](publishing.md)，本版对外说明见 [v0.1.0 说明](releases/v0.1.0.md)。必须先上传并验证不再改动的更新 ZIP，再部署含该条目的 `docs/appcast.xml`。
 

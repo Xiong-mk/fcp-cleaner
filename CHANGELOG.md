@@ -1,8 +1,9 @@
 # 更新记录
 
-## 0.1.0（构建 1）— 首版预发布准备
+## 0.1.0（构建 1）— 2026-10-19 首版预发布
 
-- 配置 GitHub Pages 正式更新源，准备 GitHub Releases 应用 ZIP、EdDSA 签名 appcast、校验元数据、静态主页与完整对应源码附件。
+- 发布 GitHub Pre-release v0.1.0 和 7 个附件；启用 `main` / `/docs` GitHub Pages 与强制 HTTPS，提供应用 ZIP、EdDSA 签名 appcast、校验元数据、静态主页与完整对应源码附件。
+- 线上主页与 appcast HTTPS 访问、远程 appcast 字节比对、公网更新 ZIP 的哈希及 Ed25519 验签、解压 App 代码签名、版本与更新配置核对均通过；公网源码 ZIP 及 82 项 manifest 与发布标签一致。
 - 增加更新包准备脚本，检查版本、公钥、代码签名、下载地址、包长度与 Ed25519 签名，并保留历史 appcast 条目。
 - 集成 Sparkle 2.10.0、EdDSA 公钥、软件更新设置、检查更新菜单及沙盒安装服务；更新源未配置时明确显示服务未启用。
 - 增加由内向外的 ad-hoc 签名脚本，保留 Sparkle helper 的独立权限，源码归档收录依赖锁和更新配置。
@@ -13,4 +14,6 @@
 - 整理源码分组，修复共享 scheme 与测试宿主依赖，补充边界测试。
 - GPL-3.0-or-later 许可、官方 GPLv3 全文、贡献和第三方声明、源码发布包审查脚本。
 
-当前已准备发布内容，GitHub Pre-release、Pages 线上检查及正式更新源验收待完成。本版为 macOS 14+、arm64 / x86_64 通用应用，采用 ad-hoc 签名，未公证；设备与实际升级安装验收见 [发布清单](docs/release.md)。
+已完成 GitHub Pre-release、Pages 线上部署与公网附件验收。本轮尚未在应用内点击「检查更新…」；升级安装、重启和其他设备验收仍未完成。本版为 macOS 14+、arm64 / x86_64 通用应用，采用 ad-hoc 签名，未公证；设备与实际升级安装验收见 [发布清单](docs/release.md)。
+
+`v0.1.0` 标签文档保留发版时快照，`main` 继续记录后续验收；Release 源码包对应原标签，不重建或替换。

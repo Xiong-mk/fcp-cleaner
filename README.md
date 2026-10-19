@@ -6,7 +6,9 @@
 
 [项目主页](https://Xiong-mk.github.io/fcp-cleaner/) · [v0.1.0 预发布版](https://github.com/Xiong-mk/fcp-cleaner/releases/tag/v0.1.0) · [对应源码](https://github.com/Xiong-mk/fcp-cleaner/releases/download/v0.1.0/FCP-Cleaner-v0.1.0-source.zip)
 
-正式 feed 已配置，本地签名 ZIP 已验证；GitHub Pages 与 Releases 线上部署待验收。应用 ZIP 为 **macOS 14+、Apple Silicon / Intel 通用版本**，使用 **ad-hoc 签名，未经过 Apple 公证**。其他设备的 Gatekeeper、最低系统和实际升级安装尚未验收，不建议关闭系统安全设置。发布状态和检查项目见 [发布清单](docs/release.md)。
+**2026-10-19 已发布** v0.1.0 Pre-release，GitHub Pages 主页和正式 appcast 已通过 HTTPS 访问验证，公网应用与源码附件已下载校验。应用 ZIP 为 **macOS 14+、Apple Silicon / Intel 通用版本**，使用 **ad-hoc 签名，未经过 Apple 公证**。其他设备的 Gatekeeper、最低系统和实际升级安装尚未验收，不建议关闭系统安全设置。本轮尚未在应用内点击「检查更新…」；发布状态和检查项目见 [发布清单](docs/release.md)。
+
+`v0.1.0` 标签中的文档保留发版时快照，`main` 继续记录后续验收。Release 源码包对应该标签，不因这些记录更新而重建或替换。
 
 ## 能做什么
 
