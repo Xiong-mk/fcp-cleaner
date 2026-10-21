@@ -114,11 +114,14 @@ print("Ed25519 signature verified")
 
 
 def main():
+    os.umask(0o077)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--app", type=Path, required=True, help="Final signed FCP Cleaner.app")
     parser.add_argument("--repository", required=True, help="GitHub repository as OWNER/REPO")
     parser.add_argument("--tag", required=True, help="Release tag, exactly v<CFBundleShortVersionString>")
     parser.add_argument("--output-dir", type=Path, help="Default: build/publish/TAG; existing outputs are refused")
+    parser.add_argument("--retire-build", action="append", default=[], metavar="BUILD",
+                        help="Explicitly remove a compromised historical item; requires a higher new build")
     args = parser.parse_args()
     if sys.platform != "darwin":
         fail("this script requires macOS, Xcode / Swift, and the Sparkle tools")
@@ -162,6 +165,13 @@ def main():
     published_feed = ROOT / "docs/appcast.xml"
     original_feed = published_feed.read_bytes() if published_feed.exists() else None
     old_items = feed_items(original_feed) if original_feed is not None else []
+    retired_builds = set(args.retire_build)
+    known_builds = {item_version(item) for item in old_items}
+    if retired_builds - known_builds:
+        fail("--retire-build must identify an existing feed build")
+    if retired_builds and (not build.isdecimal() or any(not value.isdecimal() or int(value) >= int(build) for value in retired_builds)):
+        fail("retiring an item requires a strictly higher numeric App build")
+    retained_items = [item for item in old_items if item_version(item) not in retired_builds]
     if any(item_version(item) == build for item in old_items):
         fail(f"build {build} already exists in docs/appcast.xml; increment CFBundleVersion")
     output = (args.output_dir or ROOT / "build/publish" / args.tag).resolve()
@@ -175,9 +185,26 @@ def main():
         fail("output already exists; choose a new --output-dir (no files were overwritten)")
     updates.mkdir(parents=True)
     if original_feed is not None:
-        generated_feed.write_bytes(original_feed)
+        if retired_builds:
+            retained_feed = ET.fromstring(original_feed)
+            channel = retained_feed.find("channel")
+            for item in list(channel.findall("item")):
+                if item_version(item) in retired_builds:
+                    channel.remove(item)
+            ET.register_namespace("sparkle", SPARKLE[1:-1])
+            retained_data = ET.tostring(retained_feed, encoding="utf-8", xml_declaration=True)
+            # Removing the last old item otherwise drops the now-unused namespace.
+            # Sparkle's generator expects its prefix even when the feed is empty.
+            if b"xmlns:sparkle=" not in retained_data:
+                retained_feed.set("xmlns:sparkle", SPARKLE[1:-1])
+                retained_data = ET.tostring(retained_feed, encoding="utf-8", xml_declaration=True)
+            generated_feed.write_bytes(retained_data)
+        else:
+            generated_feed.write_bytes(original_feed)
     print(f"Creating {archive_name} from App {version} ({build}); {', '.join(architectures)}")
-    run(["/usr/bin/ditto", "-c", "-k", "--keepParent", app, archive])
+    run([sys.executable, ROOT / "scripts/privacy_scan.py", "release", app])
+    run(["/usr/bin/ditto", "-c", "-k", "--noextattr", "--norsrc", "--noqtn", "--keepParent", app, archive])
+    run([sys.executable, ROOT / "scripts/privacy_scan.py", "release", archive])
     archive_hash = sha256(archive)
     release_url = f"https://github.com/{args.repository}/releases/tag/{args.tag}"
     download_prefix = f"https://github.com/{args.repository}/releases/download/{quote(args.tag, safe='')}/"
@@ -187,11 +214,11 @@ def main():
          "-o", generated_feed, updates])
     generated_data = generated_feed.read_bytes()
     new_items = feed_items(generated_data)
-    old_entries = Counter(fingerprint(item) for item in old_items)
+    old_entries = Counter(fingerprint(item) for item in retained_items)
     new_entries = Counter(fingerprint(item) for item in new_items)
     if old_entries - new_entries:
         fail("the generated appcast removed or changed historical items; docs/appcast.xml was preserved")
-    if len(new_items) != len(old_items) + 1:
+    if len(new_items) != len(retained_items) + 1:
         fail("the generated appcast must add exactly one item; docs/appcast.xml was preserved")
     current_items = [item for item in new_items if item_version(item) == build]
     if len(current_items) != 1:
@@ -237,7 +264,8 @@ def main():
                     sha256=archive_hash, public_ed_key=public_key, ed_signature=signature,
                     archive_app_verified=True, code_signature_verified=True,
                     ed25519_signature_verified=True,
-                    historical_items_preserved=len(old_items),
+                    historical_items_preserved=len(retained_items),
+                    retired_builds=sorted(retired_builds),
                     appcast_sha256=hashlib.sha256(generated_data).hexdigest())
     metadata_path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n")
     checksum_path.write_text(f"{archive_hash}  updates/{archive_name}\n"
@@ -251,7 +279,7 @@ def main():
     finally:
         temporary_path.unlink(missing_ok=True)
     print(f"Prepared {archive}; SHA-256 {archive_hash}")
-    print(f"Verified Ed25519 signature; preserved {len(old_items)} historical items")
+    print(f"Verified Ed25519 signature; preserved {len(retained_items)} historical items; retired {len(retired_builds)}")
     print(f"Updated {published_feed}; upload the unchanged ZIP before publishing this feed")
     print(f"Metadata: {metadata_path}; checksums: {checksum_path}")
 

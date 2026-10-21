@@ -1,15 +1,15 @@
-<?xml version="1.0" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
         <title>FCP Cleaner</title>
         <item>
             <title>0.1.0</title>
-            <pubDate>Sun, 18 Oct 2026 22:11:08 +0800</pubDate>
+            <pubDate>Wed, 21 Oct 2026 15:22:19 +0800</pubDate>
             <link>https://github.com/Xiong-mk/fcp-cleaner/releases/tag/v0.1.0</link>
-            <sparkle:version>1</sparkle:version>
+            <sparkle:version>2</sparkle:version>
             <sparkle:shortVersionString>0.1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/Xiong-mk/fcp-cleaner/releases/download/v0.1.0/FCP-Cleaner-0.1.0.zip" length="4778517" type="application/octet-stream" sparkle:edSignature="wK/u+nYkNLC+laiD36OZw9n+6Hw+8oJnAV3DGJnwytJKVZcQSDQR779Oitjz3xIgF4lOmcfZKV8K9TIADuU/Cg=="/>
+            <enclosure url="https://github.com/Xiong-mk/fcp-cleaner/releases/download/v0.1.0/FCP-Cleaner-0.1.0.zip" length="4729637" type="application/octet-stream" sparkle:edSignature="n08OXTHbexeWx0/EZl4CznYZGLSZIcn/iK9r15pjqRKB/+Dy+Y+KMCTXTM5lumFUCieVRxM8kvcHzyAklrKCAA=="/>
         </item>
     </channel>
 </rss>

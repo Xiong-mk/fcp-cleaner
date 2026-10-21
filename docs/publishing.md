@@ -2,7 +2,11 @@
 
 本项目将完整应用 ZIP 托管于 [GitHub Releases](https://github.com/Xiong-mk/fcp-cleaner/releases)，将 `docs/appcast.xml` 托管于 [GitHub Pages](https://Xiong-mk.github.io/fcp-cleaner/appcast.xml)。Pages 来源为 **main 分支的 `/docs`**，不需要网站构建工具。
 
-首发目标为 **v0.1.0 / App 0.1.0 / 构建 1**，标为 ad-hoc 预发布测试版。本次状态见 [发布清单](release.md)；以下流程也供未来版本重复使用。命令均从仓库根目录运行。
+首版 **v0.1.0 / App 0.1.0 / 构建 1** 已发布，标为 ad-hoc 预发布测试版。本次状态见 [发布清单](release.md)；以下流程也供未来版本重复使用。命令均从仓库根目录运行；下例保留首发版本，后续请换成新版本，不要重复创建已发布的标签或附件。
+
+此次 0.1.0（构建 2）隐私修订是经专项备份、验证和最终批准后更新现有标签及附件的例外；按 [隐私构建与检查](release-privacy.md) 操作，不要把下面首发示例直接用于覆盖已发布资产。普通后续发版仍使用新的版本标签。
+
+托管已经准备好，不需要另购服务器或域名。之后每次发布只需：递增版本与构建号 → 构建和签名 → 生成更新包与 appcast → 上传并验证 Release 附件 → 最后将 appcast 推送到 Pages。
 
 ## 1. 准备最终应用
 
@@ -56,15 +60,17 @@ git diff --check
 
 生成源码 ZIP、同名 `.sha256` 与 `.manifest.json`。脚本按允许列表收集源码、测试、资源、依赖锁、构建脚本和许可资料，拒绝私钥、真实用户路径及清单外已跟踪文件。仍需人工审查待提交文件与 diff，勿强制添加忽略目录。源码包必须与最终标签内容匹配；修改源码或文档后重新生成。
 
-## 4. 推送源码、标签并上传 Release 附件
+## 4. 先推送版本标签并上传 Release 附件
 
-把最终公开内容提交并推送到 `main`，创建并推送 `v0.1.0` 标签，在该标签创建 Release，采用 [本版发布说明](releases/v0.1.0.md)。当前签名策略对应的首版标记为 **Pre-release**。上传：
+将全部最终公开内容（含本版 appcast）在本地提交，创建版本标签，先只推送这个标签，在该标签创建 Release，采用对应版本的发布说明（首版见 [v0.1.0 发布说明](releases/v0.1.0.md)）。当前签名策略对应的首版标记为 **Pre-release**。上传：
 
 - `FCP-Cleaner-0.1.0.zip`：Sparkle 的完整应用更新包。
 - `FCP-Cleaner-v0.1.0-source.zip` 及其 `.sha256`、`.manifest.json`：完整对应源码及审查信息。
 - `FCP-Cleaner-0.1.0.sha256` 和 `FCP-Cleaner-0.1.0.json`：更新包校验与版本元数据。
 
 DMG 是可选的手动安装附件，不能替代 appcast 指向的 ZIP。不要上传钥匙串导出、真实资源库或整个构建目录。
+
+**此时先不要推送 `main`，也不要使用 `git push --all`。** Pages 已自动监听 `main` 的 `/docs`；提前推送会让 appcast 宣布一个附件尚不可下载的更新。只推送版本标签可以先公开同一提交的源码和 Release，待附件验证后再部署更新源。
 
 发布后从以下地址实际下载附件，核对本地元数据中的 SHA-256、长度、版本和签名：
 
@@ -76,7 +82,7 @@ https://github.com/Xiong-mk/fcp-cleaner/releases/download/v0.1.0/FCP-Cleaner-0.1
 
 ## 5. 启用 Pages 并部署 appcast
 
-确认 Release 附件下载与校验成功后，部署最终 `docs/appcast.xml` 及静态页面。仓库 **Settings → Pages** 选择：
+确认 Release 附件下载与校验成功后，再将上述同一提交推送到 `main`，部署最终 `docs/appcast.xml` 及静态页面。这样 Release 标签、源码包和更新清单对应同一版内容。仓库 **Settings → Pages** 已配置如下，后续无需每次重新设置：
 
 1. Source：`Deploy from a branch`。
 2. Branch：`main`。

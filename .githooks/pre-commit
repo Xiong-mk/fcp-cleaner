@@ -1,0 +1,6 @@
+#!/bin/sh
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 Steve
+set -eu
+repo_root="$(git rev-parse --show-toplevel)"
+exec python3 "$repo_root/scripts/privacy_scan.py" index --repo "$repo_root"

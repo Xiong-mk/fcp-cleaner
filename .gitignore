@@ -31,3 +31,38 @@ scan-logs-*/
 *.mp4
 *.mxf
 *.wav
+
+# Credentials, crash reports and raw developer diagnostics.
+*.trace
+*.crash
+*.ips
+*.xcactivitylog
+*.p8
+*.pem
+.secrets
+.secrets/
+.secrets.*
+.envrc
+.env.local
+.env.*.local
+id_rsa
+id_ed25519
+id_ecdsa
+
+# Local agent sessions and private security work; keep reports outside the repo.
+/.codex/
+/.tools/
+/audit-evidence/
+/private-audit/
+/security-audit/
+/privacy-remediation/
+/FCP_Cleaner_Privacy_Remediation_Report.md
+/FCP_Cleaner_Security_Audit_Report.md
+*.log
+codex-session-*.jsonl
+codex-history*.jsonl
+
+# The three original promo validation records contain private build paths.
+/fcp-cleaner-promo/evidence/flash-fix-2026-10-20/verification.json
+/fcp-cleaner-promo/evidence/revision-audio/silence-analysis.txt
+/fcp-cleaner-promo/evidence/revision-audio/final-mp4-silence-analysis.txt

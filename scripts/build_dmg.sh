@@ -3,6 +3,7 @@
 # Copyright (C) 2026 Steve
 # Build a local ad-hoc test installer using macOS tools; no Homebrew dependency.
 set -euo pipefail
+umask 077
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 APP_INPUT=""
@@ -33,7 +34,8 @@ mkdir -p "$(dirname "$OUTPUT")" "$ROOT/build"
 OUTPUT="$(cd "$(dirname "$OUTPUT")" && pwd)/$(basename "$OUTPUT")"
 [[ ! -e "$OUTPUT" ]] || die "Output exists: $OUTPUT (choose another --output)"
 [[ ! -e "$OUTPUT.sha256" && ! -e "$OUTPUT.json" ]] || die "Output metadata already exists."
-WORK="$(mktemp -d "$ROOT/build/dmg-work.XXXXXX")"
+WORK="$(mktemp -d /private/tmp/fcp-cleaner-dmg.XXXXXX)"
+chmod 700 "$WORK"
 MOUNT="$WORK/mount"
 MOUNTED=0
 cleanup() {
@@ -45,7 +47,11 @@ cleanup() {
             exit 1
         fi
     fi
-    rm -rf "$WORK"
+    if [[ "$result" == 0 ]]; then
+        rm -rf "$WORK"
+    else
+        echo "Packaging failed; private workspace retained for diagnosis: $WORK" >&2
+    fi
     exit "$result"
 }
 trap cleanup EXIT
@@ -54,17 +60,9 @@ trap 'exit 143' TERM
 
 if [[ -z "$APP_INPUT" ]]; then
     REQUIRE_UNIVERSAL=1
-    echo "Building universal Release (arm64 + x86_64)…"
-    BUILD_LOG="$ROOT/build/dmg-release-build.log"
-    if ! xcodebuild -project "$ROOT/FCP Cleaner/FCP Cleaner.xcodeproj" \
-        -scheme "FCP Cleaner" -configuration Release \
-        -destination 'generic/platform=macOS' -derivedDataPath "$ROOT/build/DMG" \
-        ONLY_ACTIVE_ARCH=NO ARCHS='arm64 x86_64' CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual \
-        CODE_SIGN_INJECT_BASE_ENTITLEMENTS=NO DEVELOPMENT_TEAM= build > "$BUILD_LOG" 2>&1; then
-        tail -60 "$BUILD_LOG" >&2
-        die "Build failed; see $BUILD_LOG"
-    fi
-    APP_INPUT="$ROOT/build/DMG/Build/Products/Release/FCP Cleaner.app"
+    echo "Building universal Release in a neutral workspace…"
+    "$ROOT/scripts/build_release.sh" --output "$WORK/FCP Cleaner.app"
+    APP_INPUT="$WORK/FCP Cleaner.app"
 fi
 [[ -d "$APP_INPUT/Contents" ]] || die "Not an app bundle: $APP_INPUT"
 [[ -f "$APP_INPUT/Contents/Info.plist" ]] || die "Missing Info.plist"
@@ -72,9 +70,9 @@ fi
 STAGING="$WORK/staging"
 APP="$STAGING/FCP Cleaner.app"
 mkdir -p "$STAGING/.background" "$MOUNT"
-ditto --noqtn "$APP_INPUT" "$APP"
-cp "$ROOT/Resources/DMG/安装说明.txt" "$STAGING/安装说明.txt"
-cp "$ROOT/Resources/DMG/background.png" "$STAGING/.background/background.png"
+ditto --noextattr --norsrc --noqtn "$APP_INPUT" "$APP"
+cp -X "$ROOT/Resources/DMG/安装说明.txt" "$STAGING/安装说明.txt"
+cp -X "$ROOT/Resources/DMG/background.png" "$STAGING/.background/background.png"
 ln -s /Applications "$STAGING/Applications"
 
 echo "Signing the packaging copy (ad-hoc, project sandbox entitlements)…"
@@ -82,6 +80,8 @@ echo "Signing the packaging copy (ad-hoc, project sandbox entitlements)…"
 for legal in LICENSE.txt COPYING.txt THIRD_PARTY_NOTICES.txt Sparkle-LICENSE.txt; do
     [[ -f "$APP/Contents/Resources/$legal" ]] || die "Missing bundled legal resource: $legal"
 done
+
+python3 "$ROOT/scripts/privacy_scan.py" release "$APP"
 
 echo "Creating read/write image…"
 hdiutil create -volname "FCP Cleaner" -fs HFS+ -srcfolder "$STAGING" \
@@ -122,6 +122,9 @@ end run
 APPLESCRIPT
 
 [[ -s "$MOUNT/.DS_Store" ]] || die "Finder did not save the layout (.DS_Store)."
+# The Finder background alias is retained. Its mount location is deliberately
+# neutral so both classic alias and bookmark records avoid personal directories.
+python3 "$ROOT/scripts/privacy_scan.py" release "$MOUNT"
 # DiskImageMounter opens the saved root window on double-click. Do not use the
 # deprecated bless --openfolder operation, which is unsupported on Apple Silicon.
 sync
@@ -131,9 +134,12 @@ MOUNTED=0
 echo "Compressing and verifying final image…"
 hdiutil convert "$WORK/Editable.dmg" -format UDZO -imagekey zlib-level=9 -o "$WORK/Final.dmg"
 hdiutil verify "$WORK/Final.dmg"
-# Read-only remount checks catch layout or bundle damage introduced by conversion.
+# Use a different mount point to prove Finder's background alias is portable.
+MOUNT="$WORK/verification"
+mkdir -p "$MOUNT"
 hdiutil attach "$WORK/Final.dmg" -mountpoint "$MOUNT" -readonly -nobrowse -noautoopen
 MOUNTED=1
+python3 "$ROOT/scripts/verify_dmg_layout.py" "$MOUNT"
 [[ "$(readlink "$MOUNT/Applications")" == /Applications ]] || die "Invalid Applications link"
 [[ -s "$MOUNT/.DS_Store" && -s "$MOUNT/.background/background.png" ]] || die "Missing Finder layout"
 cmp "$ROOT/Resources/DMG/安装说明.txt" "$MOUNT/安装说明.txt"
@@ -169,6 +175,7 @@ metadata = dict(version=info["CFBundleShortVersionString"], build=info["CFBundle
                 entitlements=entitlements)
 output.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n")
 PY
+python3 "$ROOT/scripts/privacy_scan.py" release "$MOUNT"
 hdiutil detach "$MOUNT"
 MOUNTED=0
 

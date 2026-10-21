@@ -6,7 +6,9 @@ FCP Cleaner 用于用户信任的本机文件环境。清理需要用户选择�
 
 [沙盒权限](<../FCP Cleaner/FCP Cleaner.entitlements>) 包含 App Sandbox、用户选择文件的读写访问和 app-scoped bookmarks。用户选择的是资源库所在父文件夹，应用只在这些已授权位置发现直接子资源库。授权一个父目录不会使其他磁盘位置自动成为清理候选。
 
-Sparkle 自动更新增加出站网络权限及仅限本应用 `-spks` / `-spki` 的 Mach lookup 例外，启用 Installer XPC 服务。更新包由 `SUPublicEDKey` 对应的 EdDSA 密钥验证；私钥保存在发布者钥匙串，不随源码或 App 分发。当前更新源留空，更新器保持停止；配置 HTTPS 更新源后才会按用户偏好检查更新。更新网络请求不包含本地资源库、书签或清理日志。设置与签名说明见 [Sparkle 集成](sparkle.md)。
+Sparkle 2 自动更新使用出站网络权限及仅限本应用 `-spks` / `-spki` 的 Mach lookup 例外，启用 Installer XPC 服务。当前正式更新源为 `https://Xiong-mk.github.io/fcp-cleaner/appcast.xml`，配置有效时启动更新器。包内默认自动检查开启、自动下载关闭；Sparkle 保存的用户选择优先。自动检查、菜单「检查更新…」和用户允许的更新下载会联网；更新附件由 appcast 指向的 GitHub Releases HTTPS 地址提供。请求会向托管服务暴露正常网络连接信息，例如 IP 地址；源码未实现资源库路径、书签、扫描日志或清理日志的上传。
+
+在应用「设置 → 软件更新」中可管理自动检查和自动下载；关闭自动检查后仍可手动检查。更新器拒绝非 HTTPS 或带账号密码的 feed URL。ZIP 更新包由应用内 `SUPublicEDKey` 对应的 Ed25519/EdDSA 公钥验证；私钥通过发布者钥匙串签名流程使用，不随源码或 App 分发。更新包签名与 macOS 代码签名分别验证，不能把 ad-hoc 签名视为 Developer ID 身份或 Apple 公证。设置与签名说明见 [Sparkle 集成](sparkle.md)。
 
 [AuthorizedFolderStore](<../FCP Cleaner/FCP Cleaner/Services/AuthorizedFolderStore.swift>) 依赖书签解析和 `startAccessingSecurityScopedResource()` 成功才访问目录；保存的路径不是权限凭据。磁盘断开、书签失效或权限不足时显示错误并等待重试或重新授权。正常退出释放 scope；后台任务和当前清理操作在真正返回前继续持有独立 scope。
 
@@ -26,6 +28,8 @@ Sparkle 自动更新增加出站网络权限及仅限本应用 `-spks` / `-spki`
 扫描时捕获候选和祖先的设备号、inode、创建时间、mtime、ctime、逻辑大小、链接数及树内成员；预览和执行始终对照同一份原始快照。任何检测到的变化都要求重新扫描和确认。目录遍历及容量统计只读取元数据，不校验媒体内容的哈希。
 
 最后一次路径复验和 `trashItem` 之间仍存在 TOCTOU（检查与使用间隔）窗口。当前实现没有基于文件描述符的原子移动保证，不能抵御恶意进程在该窗口内并发替换路径。使用时应保持资源库和磁盘稳定，结束会修改资源库的任务。
+
+缩小这一窗口需要同时解决对象隔离、授权、失败恢复和崩溃恢复，不能靠再增加一次路径检查完成。分阶段方案及验收条件见 [清理竞态技术方案](cleanup-race-design.md)。
 
 [运行中检查](<../FCP Cleaner/FCP Cleaner/Services/CleanupExecutor.swift>) 使用 `NSWorkspace` 辅助判断 Final Cut Pro 是否退出。它不能证明没有其他应用或后台任务占用文件，也不能锁定资源库；用户仍需在二次确认中声明编辑、渲染和导出任务已结束。
 

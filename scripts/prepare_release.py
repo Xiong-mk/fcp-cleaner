@@ -22,7 +22,7 @@ SPARKLE_REVISION = "eef1a539a373c1f1a320624b1130fc5de7b2e100"
 SPARKLE_LICENSE_HASH = "389a4e4e9a32f059775b13a06e25a591445ba229d2838d26dd3e7c0c45127cfe"
 VERSION = "0.1.0"
 ROOT_FILES = (
-    ".gitignore", ".gitattributes", "LICENSE", "README.md", "CONTRIBUTING.md",
+    ".gitignore", ".gitattributes", ".gitleaks.toml", ".githooks/pre-commit", "LICENSE", "README.md", "CONTRIBUTING.md",
     "THIRD_PARTY_NOTICES.md", "CHANGELOG.md",
     "docs/architecture.md", "docs/security.md", "docs/release.md",
     "docs/license-provenance.md", "docs/task-seven-validation.md",
@@ -58,27 +58,31 @@ def public_files():
 
 
 def audit(files):
+    from privacy_scan import scan_data, safe_label
     errors = []
     for p in files:
         if not p.is_file() or p.is_symlink() or any(parent.is_symlink() for parent in p.parents):
-            errors.append(f"Missing file or symbolic link: {p.relative_to(ROOT)}")
+            errors.append(f"Missing file or symbolic link: {safe_label(p.relative_to(ROOT))}")
             continue
         data = p.read_bytes()
+        # Scan only the exact source-archive allowlist, including untracked inputs.
+        for finding in scan_data(str(p.relative_to(ROOT)), data):
+            errors.append(f"Privacy gate: {safe_label(finding.path)}: {finding.rule} (value redacted)")
         if p.suffix in {".swift", ".py", ".sh"}:
             header = data.decode("utf-8").splitlines()[:5]
             if not any("SPDX-License-Identifier: GPL-3.0-or-later" in line for line in header):
-                errors.append(f"Missing SPDX: {p.relative_to(ROOT)}")
+                errors.append(f"Missing SPDX: {safe_label(p.relative_to(ROOT))}")
             if not any("Copyright (C)" in line for line in header):
-                errors.append(f"Missing copyright: {p.relative_to(ROOT)}")
+                errors.append(f"Missing copyright: {safe_label(p.relative_to(ROOT))}")
         user_paths = re.findall(rb"/Users/([A-Za-z0-9._-]+)/", data) if p.suffix != ".png" else []
         if any(name not in {b"demo", b"test"} for name in user_paths):
-            errors.append(f"Private user path: {p.relative_to(ROOT)}")
+            errors.append(f"Private user path: {safe_label(p.relative_to(ROOT))}")
         mounts = re.findall(rb"/" + rb"Volumes/([^/\n\"']+)", data) if p.suffix != ".png" else []
         fictional_mounts = {s.encode() for s in ("External SSD", "External HDD", "外接固态硬盘", "演示磁盘")}
         if any(name not in fictional_mounts and not name.startswith(b"Mock ") for name in mounts):
-            errors.append(f"Volume path outside the fictional fixture names: {p.relative_to(ROOT)}")
+            errors.append(f"Volume path outside the fictional fixture names: {safe_label(p.relative_to(ROOT))}")
         if p.suffix != ".png" and re.search(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----", data):
-            errors.append(f"Private key: {p.relative_to(ROOT)}")
+            errors.append(f"Private key: {safe_label(p.relative_to(ROOT))}")
     license_data = (ROOT / "LICENSE").read_bytes()
     if digest(license_data) != LICENSE_HASH:
         errors.append("LICENSE differs from the downloaded official GNU GPLv3 text")
@@ -115,7 +119,7 @@ def audit(files):
     # Keep these local inputs out of both git add and git archive.
     for name in ("inspection", "local-evidence", "大拍档垃圾清理技术分析.md"):
         if f"/{name}" not in (ROOT / ".gitignore").read_text() or f"/{name} export-ignore" not in (ROOT / ".gitattributes").read_text():
-            errors.append(f"Missing repository/export exclusion: {name}")
+            errors.append(f"Missing repository/export exclusion: {safe_label(name)}")
     # Refuse an archive if tracked publishable content would be silently omitted.
     git_root = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=ROOT, capture_output=True, text=True)
     # Downloaded source archives have no .git; do not inspect an enclosing repository.
@@ -125,7 +129,7 @@ def audit(files):
     chosen = {str(p.relative_to(ROOT)) for p in files}
     for name in filter(None, tracked):
         if name not in chosen:
-            errors.append(f"Tracked file outside the public allowlist: {name}")
+            errors.append(f"Tracked file outside the public allowlist: {safe_label(name)}")
     if errors:
         raise SystemExit("Release audit failed:\n- " + "\n- ".join(errors))
 
@@ -145,7 +149,7 @@ def main():
     with zipfile.ZipFile(args.output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for p in files:
             entry = zipfile.ZipInfo(f"FCP-Cleaner-{VERSION}/{p.relative_to(ROOT)}", (1980, 1, 1, 0, 0, 0))
-            mode = 0o100755 if p.suffix == ".sh" else 0o100644
+            mode = 0o100755 if p.suffix == ".sh" or p.relative_to(ROOT) == Path(".githooks/pre-commit") else 0o100644
             entry.external_attr = mode << 16
             entry.compress_type = zipfile.ZIP_DEFLATED
             archive.writestr(entry, p.read_bytes())

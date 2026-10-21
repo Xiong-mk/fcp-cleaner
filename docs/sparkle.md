@@ -9,7 +9,7 @@
 - 开关直接读取和修改 Sparkle 的持久化偏好，观察 `canCheckForUpdates` / `allowsAutomaticUpdates`；检查中禁用重复检查，关闭自动检查时禁用自动下载选项。
 - 默认自动检查开启，自动下载关闭；用户之后的选择优先于包内默认值。
 - EdDSA 密钥已用官方工具生成，私钥保存在登录钥匙串（account：`fcp-cleaner`，service：`https://sparkle-project.org`），未导出到项目或日志。公钥写入 `Config/Updates.xcconfig`。
-- `SPARKLE_FEED_URL` 已配置为 `https://Xiong-mk.github.io/fcp-cleaner/appcast.xml`；最终 App 为 0.1.0（构建 1）。
+- `SPARKLE_FEED_URL` 已配置为 `https://Xiong-mk.github.io/fcp-cleaner/appcast.xml`；首发 App 为 0.1.0（构建 1）；隐私修订为 0.1.0（构建 2），使用相同公钥。
 - 已准备并验证 ad-hoc 签名的双架构更新 ZIP 和 EdDSA 签名 appcast。附件由 GitHub Releases 托管，`docs/` 用于 GitHub Pages。
 
 **2026-10-19 已发布** v0.1.0 Pre-release；GitHub Pages 及公网附件验证通过。本轮尚未在应用内点击「检查更新…」，实际升级安装和重启尚未验收。发布步骤见 [GitHub 发布流程](publishing.md)，本次状态见 [发布清单](release.md)。
@@ -92,13 +92,13 @@ python3 scripts/prepare_release.py --check
 
 - 133 项测试通过（12 个 suite）；正式 App 为 0.1.0（构建 1），宿主与 Sparkle helper 均为 arm64 / x86_64。
 - 最终 App 代码签名验证通过；`scripts/prepare_update.py` 使用官方工具生成 ZIP 和 appcast，并独立验证 Ed25519 签名、下载 URL、字节长度与 SHA-256。
-- [v0.1.0 Pre-release](https://github.com/Xiong-mk/fcp-cleaner/releases/tag/v0.1.0) 已发布，提供 7 个附件；标签对应源码提交 `adaf168fe1e79521525d823a21a7cd7809ec9372`。
+- [v0.1.0 Pre-release](https://github.com/Xiong-mk/fcp-cleaner/releases/tag/v0.1.0) 已发布，提供 7 个附件；此段为首发验收记录，隐私修订后的源码以当前标签为准。
 - Pages 以 `main` / `/docs` 分支发布，强制 HTTPS 已开启；主页和 appcast 返回 HTTPS 200，线上 appcast 为 889 字节，与本地逐字节一致。
 - 公网 ZIP 为 4,778,517 字节，SHA-256 与签名包一致；CryptoKit Ed25519 验签、解压后 App 的代码签名、版本 0.1.0（构建 1）、正式 feed 及公钥核对均通过。
 - 公网源码 ZIP 的 SHA-256 与本地一致，82 项 manifest 与标签源码一致。详细校验值见 [发布清单](release.md)。
 - 本轮尚未执行应用内正式源检查，升级安装、重启及其他设备验收仍待完成。
 
-`v0.1.0` 标签中的文档保留发版时快照，`main` 包含后续验收记录；不要因更新记录而重建或替换 Release 源码包。
+普通验收记录更新无需重做 Release 源码包。本次隐私修订会更新构建号、源码标签与对应源码包，并同步替换旧附件；实际发布状态以 Release 页面和 [隐私发布流程](release-privacy.md) 为准。
 
 首发 appcast 只有构建 1，同版「已是最新版本」只能验证正式源联通与解析。完整升级验收需发布更高 `CFBundleVersion`，再从较旧构建验证发现、下载、校验、安装和重新启动。每次发版必须递增构建号；单独修改显示版本号不足以构成 Sparkle 升级。
 

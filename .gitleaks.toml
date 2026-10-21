@@ -1,0 +1,10 @@
+# Vendor rules remain enabled; only the exact existing public key is exempt.
+title = "FCP Cleaner secret protection"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Exact published Sparkle Ed25519 public key"
+regexTarget = "secret"
+regexes = ['''^5dpdTSmSHWw0JCDqq9gOuBLNkXEidjNUGkTorlnszso=$''']
